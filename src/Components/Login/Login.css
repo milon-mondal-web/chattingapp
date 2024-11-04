@@ -1,0 +1,21 @@
+.login_card{
+    @apply lg:w-[540px] lg:h-[450px] w-[320px] h-[250px]  rounded-[10px] bg-[#ffffff] flex justify-center  shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]  
+}
+
+.login_text h2{
+    @apply font-bold lg:text-[28px] text-[10px] text-[##101828] lg:mt-[48px] mt-[10px] lg:mb-[32px] mb-[10px] text-center
+
+}
+.input_text p{
+    @apply lg:text-[16px] text-[10px] font-normal text-[#344054] lg:mb-[12px] mb-[10px]
+}
+.input_text input{
+    @apply lg:text-[14px] text-[10px] font-normal text-[#344054] lg:mb-[24px] mb-[10px] lg:w-[396px] w-[250px] lg:h-[48px] h-[30px] border-[2px] lg:pl-[16px] pl-[10px] hover:border-[#D1E9FF] rounded-[20px] outline-none
+}
+.submit button {
+    @apply lg:text-[16px] text-[10px] font-bold text-[#FCFCFD] lg:mb-[24px] mb-[10px] lg:w-[396px] w-[250px] lg:h-[52px] h-[30px] border-[2px] bg-[#1570EF]  rounded-[20px] outline-none
+}
+
+.rest h3{
+    @apply lg:text-[16px] text-[10px] font-normal text-[#98A2B3] lg:mb-[12px] mb-[10px] text-center m-auto
+}
