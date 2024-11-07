@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { GoEyeClosed } from "react-icons/go";
 import { GoEye } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth"; 
+import { Bounce, toast } from 'react-toastify';
 
 const Login = () => {
     // ============ password icone use start =======================
@@ -15,33 +18,95 @@ const Login = () => {
     const navigate = useNavigate ()
 
     // =============from velidation=================
-    const [name , setname] = useState ('')
     const [email , setemail] = useState ('')
     const [password , setpassword] = useState ('')
 
-
-    const [nameError , setNameError] = useState ('')
     const [emailError , setemailError] = useState ('')
     const [passwordError , setpasswordError] = useState ('')
 
-  
+    // ================fairbase part ===========================
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
 
-  
-    
+
     const handelSubmit= (e)=>{
        e.preventDefault()
-       if (!name) {
-        setNameError('Enter Your Name')
-       }
        if (!email) {
         setemailError('Enter Your Gmail')
        }
        if (!password) {
         setpasswordError('Enter Your Password')
-       }
+       }else{
+               signInWithEmailAndPassword(auth, email, password)
+               .then((userCredential) => {
+                 // Signed in 
+                 const user = userCredential.user;
+                 console.log(userCredential.user)
+                 if(user.emailVerified === false){
+                  toast.error('Email is not verified', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    });
+
+                 }else{
+                   navigate('/Home')
+                  toast.success('Login success', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                    });
+                 }
+                 // ...
+                         })
+               .catch((error) => {
+                 const errorCode = error.code;
+                 const errorMessage = error.message;
+                 console.log (errorCode)
+                 if(errorCode == 'auth/invalid-credential'){
+                  toast.error('something went wrong ', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    });
+                 }
+               });
+
+             }
     }
-
-
+             // ============== google sing in button ====================
+    const handelgoogle = ()=>{
+      signInWithPopup(auth, provider)
+      navigate('/')
+     .then((result) => {
+       const credential = GoogleAuthProvider.credentialFromResult(result);
+       const token = credential.accessToken;
+       const user = result.user;
+     }).catch((error) => {
+       const errorCode = error.code;
+       const errorMessage = error.message;
+       const email = error.customData.email;
+       const credential = GoogleAuthProvider.credentialFromError(error);
+     });
+    }
 
 
   return (
@@ -59,7 +124,7 @@ const Login = () => {
                 <div className="account_from_head">
                       <h2>Login</h2>
                       <div className="other_account_acess">
-                        <button> <img src="Images/googleLogo.png" alt=" google logo" />  <h3>Sign in with google</h3> </button>
+                        <button onClick={handelgoogle} > <img src="Images/googleLogo.png" alt=" google logo" />  <h3>Sign in with google</h3> </button>
                         <button> <img src="Images/fblogo.png" alt=" facebookj logo" />  <h3>Sign  in with Facebook
                         </h3> </button>
                       </div>
