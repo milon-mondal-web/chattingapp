@@ -1,9 +1,11 @@
 import React from 'react'
+import Users from '../Components/Users/Users'
+
 
 const Home = () => {
   return (
     <>
-     <h1>home </h1>
+     <Users/>
     </>
   )
 }

@@ -40,7 +40,7 @@ const Register = () => {
   // ========= function part start==================  
     
     const handelSubmit= (e)=>{
-      setlodding(true)
+      
        e.preventDefault()
        if (!name) {
         setNameError('Enter Your Name') 
@@ -51,12 +51,11 @@ const Register = () => {
        if (!password) {
         setpasswordError('Enter Your Password') 
        }else{
+         setlodding(true)
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => { 
           const user = userCredential.user;
           console.log ( user );
-         
-          // ...
           sendEmailVerification(auth.currentUser)
                 .then(() => {
                   // ========= button user ========
@@ -88,7 +87,7 @@ const Register = () => {
   });
         })
         .catch((error) => {
-          setlodding(false)
+          setlodding(false);
           const errorCode = error.code;
           const errorMessage = error.message;
           if (errorCode == 'auth/email-already-in-use'){

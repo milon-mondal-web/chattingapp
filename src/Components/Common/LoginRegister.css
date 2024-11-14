@@ -77,9 +77,9 @@
   }
   
   .form__field:placeholder-shown ~ .form__label {
-    font-size: 21px;
+    font-size: 20px;
     cursor: text;
-    top: 44%;
+    top: 35%;
   }
   
   .form__label {
@@ -122,8 +122,14 @@
      bg-brandcolours lg:mt-[84px] mt-[10px] lg:mb-[41px] mb-[20px] hover:text-brandcolours  hover:bg-[#A6A6A6] active:scale-[1.1]
   }
   .account_main_from form p {
-    @apply lg:text-[26px] text-[10px] text-[#A6A6A6] font-poppins font-medium 
+    @apply lg:text-[26px] text-[10px] text-[#A6A6A6] font-poppins font-medium mb-[20px]
   }
   .account_main_from form p span {
     @apply lg:text-[26px] text-[10px] text-brandcolours   font-poppins font-medium 
+  }
+  .account_main_from form a {
+    @apply lg:text-[20px] text-[10px] text-[#f06c6c] font-poppins font-medium
+  }
+  .account_main_from form a span {
+    @apply lg:text-[20px] text-[10px] text-brandcolours   font-poppins font-medium 
   }

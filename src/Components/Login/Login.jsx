@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { GoEyeClosed } from "react-icons/go";
 import { GoEye } from "react-icons/go";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth"; 
 import { Bounce, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
     // ============ password icone use start =======================
@@ -12,18 +13,16 @@ const Login = () => {
     const handelshow = ()=> {
         setshow (!show)
     }
-    // ============ password icone use end  =========================
-
+    // ======================= redux vaiables part ==============
+    const dispatch = useDispatch()
     // ============ login  navegatec vareable part  =================
     const navigate = useNavigate ()
-
     // =============from velidation=================
     const [email , setemail] = useState ('')
     const [password , setpassword] = useState ('')
 
     const [emailError , setemailError] = useState ('')
     const [passwordError , setpasswordError] = useState ('')
-
     // ================fairbase part ===========================
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -56,7 +55,10 @@ const Login = () => {
                     });
 
                  }else{
-                   navigate('/Home')
+                   navigate('/')
+                  console.log(userCredential.user)
+                  // ================= set data to the redux==========
+                  dispatch(userData(userCredential.user))
                   toast.success('Login success', {
                     position: "top-right",
                     autoClose: 5000,
@@ -159,7 +161,9 @@ const Login = () => {
 
                         {/* ================ button from address================ */}
                           <button type='submit' >Create Account</button>
-                          <p>Already have an account?<span onClick={ ()=>navigate ('// Register')  }  >Register</span></p>
+                          <p>Already have an account?<span onClick={ ()=>navigate ('/Register')  }  >Register</span></p>
+
+                          <Link to={'/ForgetPassword'} className='pb-[30px]' > Forgotten Password? <span>Reset?</span> </Link>
 
 
 
