@@ -1,0 +1,9 @@
+.all_users_combo{
+    @apply p-[60px]
+}
+.all_user{
+    @apply text-2xl font-semibold mb-5
+}
+.common_detels{
+    @apply flex justify-between mb-5
+}

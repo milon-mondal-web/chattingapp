@@ -1,0 +1,3 @@
+.button_v1{
+    @apply py-1 px-9 rounded-[10px] text-[12px] bg-blue-700 text-white active:scale-[1.1]
+} 

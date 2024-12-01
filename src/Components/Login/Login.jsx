@@ -6,6 +6,8 @@ import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/a
 import { GoogleAuthProvider } from "firebase/auth"; 
 import { Bounce, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { userData } from '../../Slices/UserSlices';
+import { getDatabase, ref, set } from "firebase/database";
 
 const Login = () => {
     // ============ password icone use start =======================
@@ -23,9 +25,10 @@ const Login = () => {
 
     const [emailError , setemailError] = useState ('')
     const [passwordError , setpasswordError] = useState ('')
-    // ================fairbase part ===========================
+    // ================fairbase veriable  part ===========================
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+    const db = getDatabase();
 
 
     const handelSubmit= (e)=>{
@@ -69,6 +72,14 @@ const Login = () => {
                     progress: undefined,
                     theme: "colored",
                     transition: Bounce,
+                    });
+                    // =======================set data to the local storege=======================
+                     localStorage.setItem('user', JSON.stringify(userCredential.user))
+                    //  ====================set user part ===========================
+                    set(ref(db, 'allUsers/' + userCredential.user.uid  ), {
+                      userName: userCredential.user.displayName,
+                      userPhoto: userCredential.user.photoURL
+                      
                     });
                  }
                  // ...

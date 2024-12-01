@@ -1,0 +1,9 @@
+.common_user {
+    @apply flex gap-5 items-center
+}
+ .common_users_img {
+    @apply w-[40px] h-[40px] rounded-full overflow-hidden bg-gray-400 items-center flex
+}
+.common_user h2 {
+    @apply text-lg font-normal text-black 
+}
